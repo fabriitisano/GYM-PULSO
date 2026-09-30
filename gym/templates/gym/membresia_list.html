@@ -1,0 +1,32 @@
+{% extends "gym/base.html" %}
+{% block titulo %}Membresías{% endblock %}
+{% block contenido %}
+<div class="page-header">
+  <div>
+    <h2>Membresías</h2>
+    <span class="page-subtitle">{{ membresias|length }} en total</span>
+  </div>
+  <a href="{% url 'gym:membresia_create' %}" class="btn btn-primary">+ Nueva membresía</a>
+</div>
+<table class="table table-striped bg-white">
+  <thead><tr><th>Miembro</th><th>Tipo</th><th>Inicio</th><th>Fin</th><th>Activa</th></tr></thead>
+  <tbody>
+    {% for m in membresias %}
+    <tr>
+      <td>{{ m.miembro }}</td>
+      <td>{{ m.tipo }}</td>
+      <td>{{ m.fecha_inicio }}</td>
+      <td>{{ m.fecha_fin }}</td>
+      <td>{% if m.activa %}✅{% else %}❌{% endif %}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5">
+      <div class="empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.5" y="5.5" width="19" height="13" rx="1.5"/><path d="M2.5 9.5h19"/><path d="M6 14h4"/></svg>
+        <p>No hay membresías cargadas todavía.</p>
+      </div>
+    </td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

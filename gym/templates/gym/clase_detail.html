@@ -1,0 +1,16 @@
+{% extends "gym/base.html" %}
+{% block titulo %}{{ clase.nombre }}{% endblock %}
+{% block contenido %}
+<h2>{{ clase.nombre }}</h2>
+<p><strong>Entrenador:</strong> {{ clase.entrenador }}</p>
+<p><strong>Día y horario:</strong> {{ clase.get_dia_display }} de {{ clase.hora_inicio }} a {{ clase.hora_fin }}</p>
+<p><strong>Cupo:</strong> {{ clase.cupo_maximo }}</p>
+<h5>Inscriptos</h5>
+<ul class="list-group">
+  {% for i in inscripciones %}
+    <li class="list-group-item">{{ i.miembro }}</li>
+  {% empty %}
+    <li class="list-group-item">Sin inscriptos todavía.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

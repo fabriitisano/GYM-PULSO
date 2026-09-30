@@ -1,0 +1,32 @@
+{% extends "gym/base.html" %}
+{% block titulo %}Clases{% endblock %}
+{% block contenido %}
+<div class="page-header">
+  <div>
+    <h2>Clases grupales</h2>
+    <span class="page-subtitle">{{ clases|length }} en total</span>
+  </div>
+  <a href="{% url 'gym:inscripcion_create' %}" class="btn btn-primary">+ Inscribir miembro</a>
+</div>
+<table class="table table-striped bg-white">
+  <thead><tr><th>Clase</th><th>Entrenador</th><th>Día</th><th>Horario</th><th>Inscriptos</th><th></th></tr></thead>
+  <tbody>
+    {% for clase in clases %}
+    <tr>
+      <td><a href="{% url 'gym:clase_detail' clase.pk %}">{{ clase.nombre }}</a></td>
+      <td>{{ clase.entrenador }}</td>
+      <td>{{ clase.get_dia_display }}</td>
+      <td>{{ clase.hora_inicio }} - {{ clase.hora_fin }}</td>
+      <td>{{ clase.inscriptos }}/{{ clase.cupo_maximo }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5">
+      <div class="empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4.5" width="18" height="16" rx="1.5"/><path d="M3 9.5h18M8 3v3M16 3v3"/></svg>
+        <p>No hay clases cargadas todavía.</p>
+      </div>
+    </td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

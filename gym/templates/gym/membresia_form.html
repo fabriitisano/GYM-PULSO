@@ -1,0 +1,10 @@
+{% extends "gym/base.html" %}
+{% block titulo %}Nueva membresía{% endblock %}
+{% block contenido %}
+<h2>Nueva membresía</h2>
+<form method="post" class="card p-3">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+{% endblock %}

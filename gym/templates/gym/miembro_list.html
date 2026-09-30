@@ -1,0 +1,32 @@
+{% extends "gym/base.html" %}
+{% block titulo %}Miembros{% endblock %}
+{% block contenido %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>Miembros</h2>
+  <a href="{% url 'gym:miembro_create' %}" class="btn btn-primary">+ Nuevo miembro</a>
+</div>
+<form method="get" class="mb-3">
+  <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="Buscar por nombre o apellido">
+</form>
+<table class="table table-striped bg-white">
+  <thead>
+    <tr><th>Nombre</th><th>DNI</th><th>Estado</th><th>Inscripción</th><th></th></tr>
+  </thead>
+  <tbody>
+    {% for miembro in miembros %}
+    <tr>
+      <td><a href="{% url 'gym:miembro_detail' miembro.pk %}">{{ miembro.nombre }} {{ miembro.apellido }}</a></td>
+      <td>{{ miembro.dni }}</td>
+      <td><span class="badge bg-{% if miembro.estado == 'activo' %}success{% elif miembro.estado == 'suspendido' %}warning{% else %}secondary{% endif %}">{{ miembro.get_estado_display }}</span></td>
+      <td>{{ miembro.fecha_inscripcion }}</td>
+      <td>
+        <a href="{% url 'gym:miembro_update' miembro.pk %}" class="btn btn-sm btn-outline-secondary">Editar</a>
+        <a href="{% url 'gym:miembro_delete' miembro.pk %}" class="btn btn-sm btn-outline-danger">Eliminar</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5">No hay miembros registrados.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

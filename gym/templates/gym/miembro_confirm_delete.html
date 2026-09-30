@@ -1,0 +1,10 @@
+{% extends "gym/base.html" %}
+{% block titulo %}Eliminar miembro{% endblock %}
+{% block contenido %}
+<h2>¿Eliminar a {{ miembro }}?</h2>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+  <a href="{% url 'gym:miembro_detail' miembro.pk %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

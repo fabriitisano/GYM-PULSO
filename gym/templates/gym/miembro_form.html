@@ -1,0 +1,112 @@
+{% extends "gym/base.html" %}
+{% block titulo %}{{ titulo }}{% endblock %}
+{% block contenido %}
+<div class="page-header">
+  <div>
+    <h2>{{ titulo }}</h2>
+    <span class="page-subtitle">Completá los datos del socio</span>
+  </div>
+</div>
+
+<form method="post" enctype="multipart/form-data" class="form-modern">
+  {% csrf_token %}
+  <div class="form-layout">
+
+    <aside class="form-aside">
+      <div class="avatar-upload">
+        <label for="{{ form.foto.id_for_label }}" class="avatar-circle">
+          {% if form.instance.foto %}
+            <img id="avatarPreviewImg" src="{{ form.instance.foto.url }}" alt="">
+          {% else %}
+            <svg id="avatarPlaceholder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20.5c1.5-4 4-6 7.5-6s6 2 7.5 6"/></svg>
+            <img id="avatarPreviewImg" src="" alt="" style="display:none;">
+          {% endif %}
+          <span class="avatar-edit">Cambiar foto</span>
+        </label>
+        {{ form.foto }}
+      </div>
+      <p class="form-hint">JPG o PNG. Se recorta en redondo automáticamente.</p>
+    </aside>
+
+    <div class="form-main">
+      <section class="form-section">
+        <h6 class="section-title">Datos personales</h6>
+        <div class="form-grid">
+          <div class="field">
+            <label for="{{ form.nombre.id_for_label }}">Nombre</label>
+            {{ form.nombre }}
+            {% if form.nombre.errors %}<div class="field-error">{{ form.nombre.errors.0 }}</div>{% endif %}
+          </div>
+          <div class="field">
+            <label for="{{ form.apellido.id_for_label }}">Apellido</label>
+            {{ form.apellido }}
+            {% if form.apellido.errors %}<div class="field-error">{{ form.apellido.errors.0 }}</div>{% endif %}
+          </div>
+          <div class="field">
+            <label for="{{ form.dni.id_for_label }}">DNI</label>
+            {{ form.dni }}
+            {% if form.dni.errors %}<div class="field-error">{{ form.dni.errors.0 }}</div>{% endif %}
+          </div>
+          <div class="field">
+            <label for="{{ form.fecha_nacimiento.id_for_label }}">Fecha de nacimiento</label>
+            {{ form.fecha_nacimiento }}
+            {% if form.fecha_nacimiento.errors %}<div class="field-error">{{ form.fecha_nacimiento.errors.0 }}</div>{% endif %}
+          </div>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h6 class="section-title">Contacto</h6>
+        <div class="form-grid">
+          <div class="field">
+            <label for="{{ form.email.id_for_label }}">Email</label>
+            {{ form.email }}
+            {% if form.email.errors %}<div class="field-error">{{ form.email.errors.0 }}</div>{% endif %}
+          </div>
+          <div class="field">
+            <label for="{{ form.telefono.id_for_label }}">Teléfono</label>
+            {{ form.telefono }}
+            {% if form.telefono.errors %}<div class="field-error">{{ form.telefono.errors.0 }}</div>{% endif %}
+          </div>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h6 class="section-title">Estado en el gimnasio</h6>
+        <div class="form-grid form-grid--single">
+          <div class="field">
+            <label for="{{ form.estado.id_for_label }}">Estado</label>
+            {{ form.estado }}
+            {% if form.estado.errors %}<div class="field-error">{{ form.estado.errors.0 }}</div>{% endif %}
+          </div>
+        </div>
+      </section>
+
+      <div class="form-actions">
+        <a href="{% url 'gym:miembro_list' %}" class="btn btn-outline-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-primary">Guardar miembro</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<script>
+  const fotoInput = document.getElementById('{{ form.foto.id_for_label }}');
+  const img = document.getElementById('avatarPreviewImg');
+  const placeholder = document.getElementById('avatarPlaceholder');
+  if (fotoInput) {
+    fotoInput.addEventListener('change', function (e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (ev) {
+          img.src = ev.target.result;
+          img.style.display = 'block';
+          if (placeholder) placeholder.style.display = 'none';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+</script>
+{% endblock %}

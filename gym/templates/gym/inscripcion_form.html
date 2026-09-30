@@ -1,0 +1,10 @@
+{% extends "gym/base.html" %}
+{% block titulo %}Inscribir a clase{% endblock %}
+{% block contenido %}
+<h2>Inscribir miembro a clase</h2>
+<form method="post" class="card p-3">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">Inscribir</button>
+</form>
+{% endblock %}

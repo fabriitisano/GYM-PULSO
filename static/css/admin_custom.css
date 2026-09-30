@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root, [data-theme="light"] {
+  --primary: #1A1B1E;
+  --secondary: #15171B;
+  --accent: #F2B705;
+  --primary-fg: #fff;
+
+  --header-color: #fff;
+  --header-branding-color: var(--accent);
+  --header-bg: var(--secondary);
+  --header-link-color: #fff;
+
+  --breadcrumbs-fg: #c9cbce;
+  --breadcrumbs-link-fg: #fff;
+  --breadcrumbs-bg: var(--primary);
+
+  --link-fg: #9c7300;
+  --link-hover-color: #1A1B1E;
+  --link-selected-fg: #9c7300;
+
+  --button-fg: #1A1B1E;
+  --button-bg: var(--accent);
+  --button-hover-bg: #DDA700;
+  --default-button-bg: #1A1B1E;
+  --default-button-hover-bg: #000;
+
+  --close-button-bg: #6B6F76;
+  --close-button-hover-bg: #4d4f54;
+  --delete-button-bg: #C0392B;
+  --delete-button-hover-bg: #a52f22;
+
+  --object-tools-fg: #fff;
+  --object-tools-bg: #1A1B1E;
+  --object-tools-hover-bg: #000;
+
+  --selected-bg: #FBF3D9;
+  --selected-row: #FBF3D9;
+}
+
+body, input, textarea, select {
+  font-family: 'Inter', sans-serif;
+}
+
+#branding h1, #branding h1 a,
+.module h2, .module caption, fieldset.module h2 {
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: .02em;
+}
+
+#site-name a { display: flex; align-items: baseline; gap: .35rem; }
+
+div.breadcrumbs {
+  font-family: 'Inter', sans-serif;
+}
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+#changelist-filter h2 {
+  font-family: 'Oswald', sans-serif;
+}

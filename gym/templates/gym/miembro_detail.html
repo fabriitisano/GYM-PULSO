@@ -1,0 +1,46 @@
+{% extends "gym/base.html" %}
+{% block titulo %}{{ miembro }}{% endblock %}
+{% block contenido %}
+<h2>{{ miembro.nombre }} {{ miembro.apellido }}</h2>
+<div class="card p-3 mb-3">
+  <p><strong>DNI:</strong> {{ miembro.dni }}</p>
+  <p><strong>Email:</strong> {{ miembro.email }}</p>
+  <p><strong>Teléfono:</strong> {{ miembro.telefono }}</p>
+  <p><strong>Estado:</strong> {{ miembro.get_estado_display }}</p>
+  <p><strong>Fecha de inscripción:</strong> {{ miembro.fecha_inscripcion }}</p>
+  <a href="{% url 'gym:marcar_asistencia' miembro.pk %}" class="btn btn-success btn-sm">Marcar asistencia hoy</a>
+  <a href="{% url 'gym:miembro_update' miembro.pk %}" class="btn btn-secondary btn-sm">Editar</a>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <h5>Membresías</h5>
+    <ul class="list-group mb-3">
+      {% for m in miembro.membresias.all %}
+        <li class="list-group-item">{{ m.tipo }} ({{ m.fecha_inicio }} - {{ m.fecha_fin }})</li>
+      {% empty %}
+        <li class="list-group-item">Sin membresías.</li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="col-md-6">
+    <h5>Pagos</h5>
+    <ul class="list-group mb-3">
+      {% for p in miembro.pagos.all %}
+        <li class="list-group-item">${{ p.monto }} - {{ p.fecha_pago }} ({{ p.get_metodo_display }})</li>
+      {% empty %}
+        <li class="list-group-item">Sin pagos registrados.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+<h5>Últimas asistencias</h5>
+<ul class="list-group">
+  {% for a in miembro.asistencias.all|slice:":10" %}
+    <li class="list-group-item">{{ a.fecha }} - {{ a.hora_entrada }}</li>
+  {% empty %}
+    <li class="list-group-item">Sin asistencias registradas.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

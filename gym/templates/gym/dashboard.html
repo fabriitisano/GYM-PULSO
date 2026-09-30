@@ -1,0 +1,54 @@
+{% extends "gym/base.html" %}
+{% block titulo %}Dashboard{% endblock %}
+{% block contenido %}
+<h2 class="mb-4">Panel general</h2>
+<div class="row g-3">
+  <div class="col-md-3">
+    <div class="card p-3 text-center">
+      <h6>Miembros totales</h6>
+      <h2>{{ total_miembros }}</h2>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card p-3 text-center">
+      <h6>Miembros activos</h6>
+      <h2>{{ miembros_activos }}</h2>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card p-3 text-center">
+      <h6>Entrenadores</h6>
+      <h2>{{ total_entrenadores }}</h2>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card p-3 text-center">
+      <h6>Ingresos totales</h6>
+      <h2>${{ ingresos_totales }}</h2>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-md-6">
+    <div class="card p-3">
+      <h5>Próximas clases</h5>
+      <ul class="list-group">
+        {% for clase in proximas_clases %}
+          <li class="list-group-item">
+            {{ clase.nombre }} - {{ clase.get_dia_display }} {{ clase.hora_inicio }} ({{ clase.entrenador }})
+          </li>
+        {% empty %}
+          <li class="list-group-item">No hay clases cargadas.</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card p-3 text-center">
+      <h5>Asistencias de hoy</h5>
+      <h2>{{ asistencias_hoy }}</h2>
+    </div>
+  </div>
+</div>
+{% endblock %}
